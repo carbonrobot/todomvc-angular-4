@@ -1,20 +1,30 @@
 <section class="todoapp">
-  <header class="header">
-    <h1>Todos</h1>
-    <input class="new-todo" placeholder="What needs to be done?" autofocus="" [(ngModel)]="newTodo.title" (keyup.enter)="addTodo()">
-  </header>
-  <section class="main" *ngIf="todos.length > 0">
-    <ul class="todo-list">
-      <li *ngFor="let todo of todos" [class.completed]="todo.complete">
-        <div class="view">
-          <input class="toggle" type="checkbox" (click)="toggleTodoComplete(todo)" [checked]="todo.complete">
-          <label>{{todo.title}}</label>
-          <button class="destroy" (click)="removeTodo(todo)"></button>
-        </div>
-      </li>
-    </ul>
-  </section>
-  <footer class="footer" *ngIf="todos.length > 0">
-    <span class="todo-count"><strong>{{todos.length}}</strong> {{todos.length == 1 ? 'item' : 'items'}} left</span>
-  </footer>
+    <header class="header">
+        <h1>Divisions</h1>
+        <input class="new-todo" placeholder="Enter a division name and press enter" autofocus="" [(ngModel)]="newTodo.title" (keyup.enter)="addTodo()">
+    </header>
+    <section class="main" *ngIf="todos.length > 0">
+        <ul class="todo-list">
+            <li *ngFor="let todo of todos; let i = index">
+                <div class="view">
+                    <label>{{todo.title}}</label>
+                    <button class="destroy" (click)="removeTodo(todo)" style="margin-top: 10px"></button>
+                </div>
+                <div class="subtodo">
+                    <input class="new-todo" placeholder="Enter a subdivision name and press enter" [(ngModel)]="newSub[i].title" (keyup.enter)="addSub(todo, i)">
+                    <ul class="todo-list">
+                        <li *ngFor="let sub of todo.subs">
+                            <div class="view">
+                                <label>{{sub.title}}</label>
+                                <button class="destroy" (click)="removeSub(todo, i)"></button>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </section>
+    <footer class="footer" *ngIf="todos.length > 0">
+        <span class="todo-count"><strong>{{todos.length}}</strong> {{todos.length == 1 ? 'division' : 'divisions'}}</span>
+    </footer>
 </section>

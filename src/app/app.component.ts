@@ -11,6 +11,7 @@ import {TodoDataService} from './todo-data.service';
 export class AppComponent {
 
   newTodo: Todo = new Todo();
+  newSub: Todo[] = [];
 
   constructor(private todoDataService: TodoDataService) {
   }
@@ -18,14 +19,20 @@ export class AppComponent {
   addTodo() {
     this.todoDataService.addTodo(this.newTodo);
     this.newTodo = new Todo();
+    this.newSub.push(new Todo());
   }
 
-  toggleTodoComplete(todo) {
-    this.todoDataService.toggleTodoComplete(todo);
+  addSub(todo, index) {
+    this.todoDataService.addSub(todo, this.newSub[index]);
+    this.newSub[index] = new Todo();
   }
 
   removeTodo(todo) {
     this.todoDataService.deleteTodoById(todo.id);
+  }
+
+removeSub(todo, sub) {
+    this.todoDataService.deleteSub(todo, sub);
   }
 
   get todos() {
